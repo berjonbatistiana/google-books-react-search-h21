@@ -11,6 +11,7 @@ module.exports = {
     const { query: params } = req;
     axios
       .get("https://www.googleapis.com/books/v1/volumes", {
+        // requires parameter q that has a string that starts with 'title:' with the search string
         params
       })
       .then(results =>
