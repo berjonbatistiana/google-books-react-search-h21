@@ -15,18 +15,23 @@ module.exports = {
       })
       .then(results =>
         results.data.items.filter(
+          // fetch only the ones with small thumbnails
           result =>
-            result.volumeInfo.title &&
-            result.volumeInfo.infoLink &&
-            result.volumeInfo.authors &&
-            result.volumeInfo.description &&
-            result.volumeInfo.imageLinks &&
-            result.volumeInfo.imageLinks.thumbnail
+          {
+            return (result.volumeInfo.title &&
+              result.volumeInfo.infoLink &&
+              result.volumeInfo.authors &&
+              result.volumeInfo.description &&
+              result.volumeInfo.imageLinks &&
+              result.volumeInfo.imageLinks.thumbnail)
+          }
+          
         )
       )
       .then(apiBooks =>
         db.Book.find().then(dbBooks =>
           apiBooks.filter(apiBook =>
+            // filter out books that is already saved in mongoDb
             dbBooks.every(dbBook => dbBook.googleId.toString() !== apiBook.id)
           )
         )

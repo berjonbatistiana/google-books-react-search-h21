@@ -18,9 +18,10 @@ if (process.env.NODE_ENV === "production") {
 // Add routes, both API and view
 app.use(routes);
 
-// Connect to the Mongo DB
+// Connect to the Mongo DB, use env files instead of a string for mongodb for public repository purposes
 mongoose.connect(
   process.env.MONGODB_URI,
+  // updated options because of deprecation warnings
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,

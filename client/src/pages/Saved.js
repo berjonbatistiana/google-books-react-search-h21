@@ -12,6 +12,7 @@ class Saved extends Component {
     books: []
   };
 
+  // fetch saved books from our db when the page loads
   componentDidMount() {
     this.getSavedBooks();
   }
@@ -20,6 +21,7 @@ class Saved extends Component {
     API.getSavedBooks()
       .then(res =>
         this.setState({
+          // if the call is successful update the state to the books that were retrieved
           books: res.data
         })
       )
@@ -27,7 +29,8 @@ class Saved extends Component {
   };
 
   handleBookDelete = id => {
-    API.deleteBook(id).then(res => this.getSavedBooks());
+    // After a book is deleted, fetch all the books saved in db again for the updated books
+    API.deleteBook(id).then(_res => this.getSavedBooks());
   };
 
   render() {
